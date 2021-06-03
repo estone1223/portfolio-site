@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+
+<header class="header">
+    <div class="container">
+        <div class="text-center">
+            <div class="my-5">
+                <img src='../static/media/kujira.png' height="200" width="200" class="icon rounded-circle img-center-cover"
+                    alt="">
+            </div>
+            <div>
+                <h2 class="text-dark header-title">{{ profile.name }}</h2>
+                <div class="mb-3">
+                    {% if profile.career %}
+                    <span>{{ profile.career }}</span>
+                    <span>/</span>
+                    {% endif %}
+                    {% if profile.org %}
+                    <span>{{ profile.org }}</span>
+                    {% if profile.age %}
+                    <span>/</span>
+                    {% endif %}
+                    {% endif %}
+                    {% if profile.age %}
+                    <span>{{ profile.age }}歳</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div>
+                <div class="mb-4">
+                    {% if profile.twitter %}
+                    <a href="{{ profile.twitter }}" target="_blank">
+                        <i class="fab fa-twitter sns-icon text-twitter"></i>
+                    </a>
+                    {% endif %}
+                </div>
+                <div class="row">
+                    <div class="col-md-9 mx-auto">
+                        <div class=" bg-light py-4">
+                            <div class="container">
+                                <p class="lead text-dark">
+                                    {{ profile.introduction|safe|linebreaksbr }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="mb-100">
+    <div class="container">
+        <h3 class="display-4 font-weight-bold mt-100 text-color ">SKILLS</h3>
+        <div class="row">
+            <div class="col-md-11 mx-auto">
+                <table class="table table-borderless">
+                    {% for skill in skills %}
+                    <tr>
+                        <td class="align-middle h4 text-dark">{{ skill.name }}</td>
+                        <td><span class="badge badge-color font-14">{{ skill.years }}年</span></td>
+                        <td class="skill-text align-middle">{{ skill.description.text }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mb-5">
+    <div class="container">
+        <h3 class="display-4 font-weight-bold mt-100 text-color ">WORKS</h3>
+        <div class="row">
+            {% for work in works %}
+            <div class="col-lg-4 mb-3">
+                <a href="{{ work.url }}" class="work-title" target="_blank">
+                    <div class="card shadow-sm border ">
+                        <div>
+                            <img src="{% if work.image %}{{ work.image.url }}{% else %}{% static 'assets/img/sample.png' %}{% endif %}"
+                                class="img-center-cover" height="360" width="100%" alt="">
+                        </div>
+                        <div class="p-3">
+                            <h5 class="text-dark mb-0">{{ work.title }}</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+    </div>
+</section>
+{% endblock %}
